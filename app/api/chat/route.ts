@@ -160,7 +160,7 @@ export async function POST(request: Request) {
       .filter(isChatMessage)
       .map((item) => ({
         role: item.role,
-        content: item.content.trim().slice(0, 1500),
+        content: item.content.trim().slice(0, 600),
       }));
 
     // Ensure the current question is included.
@@ -177,7 +177,7 @@ export async function POST(request: Request) {
     }
 
     // Limit context to the latest eight messages.
-    const recentConversation = conversation.slice(-8);
+    const recentConversation = conversation.slice(-4);
 
     // Decide whether this question needs current information.
     const mustSearch = requiresLiveSearch(message);
@@ -247,7 +247,7 @@ its date against the current Bangladesh date.`,
 
       temperature: 1,
 
-      max_completion_tokens: 2048,
+      max_completion_tokens: 1024,
     });
 
     const answer = completion.choices[0]?.message?.content;
